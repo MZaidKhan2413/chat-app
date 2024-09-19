@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --primary-color: #222831;
+    --c-grey: #393E46;
+    --c-yellow: #FFD369;
+    --c-light: #EEEEEE;
+}
+
+body {
+    background-color: var(--primary-color);
+}
+
+.form-inputs {
+    @apply h-10 px-3 py-4 text-lg w-4/5 rounded-md;
+    background-color: transparent;
+    border: 1px solid var(--c-yellow);
+    color: var(--c-light) !important;
+}
+
+.submit-btn {
+    background-color: var(--c-yellow);
+    @apply py-3 px-10 rounded-lg;
+    width: fit-content;
+}
+.submit-btn:hover {
+    box-shadow: 0px 10px 15px 3px rgba(0,0,0,0.1);
+}
+.submit-btn:active {
+    opacity: .8;
+}
