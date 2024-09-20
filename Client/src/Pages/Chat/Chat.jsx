@@ -4,12 +4,14 @@ import axios from "axios";
 import { allUsres_url } from "../../utils/APIroutes";
 import "./Chat.css";
 import Contact from "../../Components/Contacts/Contact";
+import Welcome from "../../Components/Welcome/Welcome";
 
 const Chat = () => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -17,6 +19,7 @@ const Chat = () => {
         navigate("/login");
       } else {
         setCurrentUser(await JSON.parse(localStorage.getItem("chat-user")));
+        setIsLoaded(true);
       }
     };
     checkUser();
@@ -46,7 +49,7 @@ const Chat = () => {
         <Contact currentUser={currentUser} contacts={contacts} chatChange={handleChatChange}/>
       </div>
       <div className="messages px-3 py-2 md:col-span-9 sm:col-span-8 col-span-12 h-full">
-        {/* Messages component */}
+        {isLoaded && <Welcome currentUser={currentUser}/>}
       </div>
     </section>
   );
