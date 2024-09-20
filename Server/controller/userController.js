@@ -44,3 +44,14 @@ module.exports.login = async (req, res) => {
     console.log(e);
   }
 }
+
+module.exports.allUsers = async (req, res) => {
+  try {
+    const users = await User.find({_id: {$ne: req.params.id } }).select([
+      "email", "username", "_id", "avatarImage" 
+    ])
+    return res.json(users);
+  } catch (error) {
+    
+  }
+}

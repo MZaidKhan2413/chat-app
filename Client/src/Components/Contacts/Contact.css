@@ -1,0 +1,15 @@
+.contact-header {
+    border-bottom: 2px solid var(--primary-color);
+    padding-left: 10px;
+}
+
+.contact-item {
+    /* background-color: blue; */
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: var(--c-yellow);
+    font-weight: bold;
+}
