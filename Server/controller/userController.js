@@ -26,3 +26,21 @@ module.exports.register = async (req, res) => {
     console.log(e);
   }
 };
+
+module.exports.login = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.json({ msg: "User not found", status: false });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.json({ msg: "Password is incorrect", status: false });
+    }
+    delete user.password;
+    return res.json({ user, status: true });
+  } catch (e) {
+    console.log(e);
+  }
+}
