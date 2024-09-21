@@ -5,6 +5,7 @@ import { allUsres_url } from "../../utils/APIroutes";
 import "./Chat.css";
 import Contact from "../../Components/Contacts/Contact";
 import Welcome from "../../Components/Welcome/Welcome";
+import ChatContainer from "../../Components/ChatContainer/ChatContainer";
 
 const Chat = () => {
   const navigate = useNavigate();
@@ -49,7 +50,11 @@ const Chat = () => {
         <Contact currentUser={currentUser} contacts={contacts} chatChange={handleChatChange}/>
       </div>
       <div className="messages px-3 py-2 md:col-span-9 sm:col-span-8 col-span-12 h-full">
-        {isLoaded && <Welcome currentUser={currentUser}/>}
+        {
+          isLoaded && currentChat === undefined ? 
+          <Welcome currentUser={currentUser}/> :
+          <ChatContainer chatUser={currentChat} />
+        }
       </div>
     </section>
   );
