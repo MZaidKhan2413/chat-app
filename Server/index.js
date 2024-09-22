@@ -10,7 +10,7 @@ const messageRoutes = require("./routes/messageRoutes.js");
 
 const app = express();
 
-mongoose.connect('mongodb://127.0.0.1:27017/vibey')
+mongoose.connect(process.env.MONGO_URL)
 .then(()=>{
     console.log("DB connected...")
 })
