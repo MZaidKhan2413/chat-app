@@ -32,9 +32,7 @@ const Chat = () => {
     if(currentUser) {
       socket.current = io(host_url, {
         withCredentials: true,
-        extraHeaders: {
-          "Access-Control-Allow-Origin": "https://vibey-chat-app.vercel.app"
-        }
+        transports: ['websocket', 'polling'],
       });
       socket.current.emit("add-user", currentUser._id);
     }
