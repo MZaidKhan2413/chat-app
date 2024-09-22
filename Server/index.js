@@ -18,7 +18,11 @@ mongoose.connect(process.env.MONGO_URL)
     console.log("Mongo error");
 })
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://vibey-chat-app.vercel.app',
+    credentials: true,
+    methods: ['GET', 'POST']
+}));
 app.use(express.json());
 
 app.use("/api/auth", userRoutes);
@@ -30,9 +34,9 @@ const server = app.listen(PORT, ()=>{
 
 const io = socket(server, {
     cors: {
-      origin: "*",
-      credentials: true,
-      methods: ["GET", "POST"]
+        origin: 'https://vibey-chat-app.vercel.app',
+        methods: ["GET", "POST"],
+        credentials: true
     }
 });
 
