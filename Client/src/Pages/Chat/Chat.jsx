@@ -30,7 +30,12 @@ const Chat = () => {
 
   useEffect(()=>{
     if(currentUser) {
-      socket.current = io(host_url);
+      socket.current = io(host_url, {
+        withCredentials: true,
+        extraHeaders: {
+          "Access-Control-Allow-Origin": "https://vibey-chat-app.vercel.app"
+        }
+      });
       socket.current.emit("add-user", currentUser._id);
     }
   }, [currentUser]);
