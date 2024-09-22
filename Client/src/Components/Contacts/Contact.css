@@ -13,3 +13,12 @@
     background-color: var(--c-yellow);
     font-weight: bold;
 }
+
+@media screen and (max-width: 640px) {
+    .col-span-6 {
+        width: 99vw;
+    }
+    .messages {
+        transform: translateX(50%);
+    }
+}

@@ -54,11 +54,11 @@ const Chat = () => {
   } 
 
   return (
-    <section className="all-chats grid grid-cols-12 gap-2 h-screen p-2 overflow-x-hidden sm:overflow-auto overflow-y-hidden">
-      <div className="contacts rounded-md px-3 py-2 md:col-span-3 sm:col-span-4 col-span-12 h-screen overflow-auto">
+    <section className="all-chats grid grid-cols-12 gap-2 h-screen sm:p-2 p-0 sm:overflow-auto overflow-y-hidden">
+      <div className="contacts rounded-md px-3 py-2 md:col-span-3 sm:col-span-4 col-span-6 h-screen overflow-auto">
         <Contact currentUser={currentUser} contacts={contacts} chatChange={handleChatChange}/>
       </div>
-      <div className="messages px-3 py-2 md:col-span-9 sm:col-span-8 col-span-12 h-screen">
+      <div className="messages px-3 py-2 md:col-span-9 sm:col-span-8 col-span-6 h-screen">
         {
           isLoaded && currentChat === undefined ? 
           <Welcome currentUser={currentUser}/> :
