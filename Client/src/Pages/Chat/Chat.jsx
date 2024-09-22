@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { allUsres_url } from "../../utils/APIroutes";
+import { allUsres_url, host_url } from "../../utils/APIroutes";
 import "./Chat.css";
 import Contact from "../../Components/Contacts/Contact";
 import Welcome from "../../Components/Welcome/Welcome";
 import ChatContainer from "../../Components/ChatContainer/ChatContainer";
+import {io} from "socket.io-client";
 
 const Chat = () => {
+  const socket = useRef();
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
   const [contacts, setContacts] = useState([]);
@@ -25,6 +27,13 @@ const Chat = () => {
     };
     checkUser();
   }, []);
+
+  useEffect(()=>{
+    if(currentUser) {
+      socket.current = io(host_url);
+      socket.current.emit("add-user", currentUser._id);
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     const fetchContacts = async () => {
@@ -45,15 +54,15 @@ const Chat = () => {
   } 
 
   return (
-    <section className="all-chats grid grid-cols-12 gap-2 h-screen p-2 overflow-x-hidden">
-      <div className="contacts rounded-md px-3 py-2 md:col-span-3 sm:col-span-4 col-span-12 h-full">
+    <section className="all-chats grid grid-cols-12 gap-2 h-screen p-2 overflow-x-hidden sm:overflow-auto overflow-y-hidden">
+      <div className="contacts rounded-md px-3 py-2 md:col-span-3 sm:col-span-4 col-span-12 h-screen overflow-auto">
         <Contact currentUser={currentUser} contacts={contacts} chatChange={handleChatChange}/>
       </div>
-      <div className="messages px-3 py-2 md:col-span-9 sm:col-span-8 col-span-12 h-full">
+      <div className="messages px-3 py-2 md:col-span-9 sm:col-span-8 col-span-12 h-screen">
         {
           isLoaded && currentChat === undefined ? 
           <Welcome currentUser={currentUser}/> :
-          <ChatContainer chatUser={currentChat} currentUser={currentUser} />
+          <ChatContainer chatUser={currentChat} currentUser={currentUser} socket={socket} />
         }
       </div>
     </section>
