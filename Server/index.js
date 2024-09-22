@@ -30,8 +30,9 @@ const server = app.listen(PORT, ()=>{
 
 const io = socket(server, {
     cors: {
-      origin: "https://vibey-chat-app.vercel.app",
-      credentials: true
+      origin: "*",
+      credentials: true,
+      methods: ["GET", "POST"]
     }
 });
 
