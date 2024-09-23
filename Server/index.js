@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const socket = require('socket.io');
+const {Server} = require('socket.io');
 const http = require('http');
 const PORT = process.env.PORT || 3000;
 
@@ -33,12 +33,12 @@ app.use("/api/auth", userRoutes);
 app.use("/api/messages", messageRoutes);
 
 
-const io = socket(server, {
+const io = new Server(server, {
     cors: {
-        origin: 'https://vibey-chat-app.vercel.app',
+        origin: '*',
         methods: ["GET", "POST"],
-        credentials: true,
-        transports: ['websocket', 'polling'],
+        // credentials: true,
+        // transports: ['websocket', 'polling'],
     }
 });
 
