@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const socket = require('socket.io');
+const http = require('http');
 const PORT = process.env.PORT || 3000;
 
 const userRoutes = require("./routes/userRoutes.js");
@@ -23,14 +24,14 @@ app.use(cors({
     credentials: true,
     methods: ['GET', 'POST']
 }));
+
+const server = http.createServer(app);
+
 app.use(express.json());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/messages", messageRoutes);
 
-const server = app.listen(PORT, ()=>{
-    console.log("App is listening at port: ",PORT);
-})
 
 const io = socket(server, {
     cors: {
@@ -56,3 +57,7 @@ io.on('connection', (socket)=>{
         }
     });
 });
+
+server.listen(PORT, ()=>{
+    console.log("App is listening at port: ",PORT);
+})
