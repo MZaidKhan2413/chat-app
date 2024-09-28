@@ -1,4 +1,4 @@
-export const host_url = "https://vibey-chat-app-backend.vercel.app"; 
+export const host_url = "https://chat-app-l8rb.onrender.com"; 
 export const register_url = `${host_url}/api/auth/register`;
 export const login_url = `${host_url}/api/auth/login`;
 export const allUsres_url = `${host_url}/api/auth/allUsers`;
