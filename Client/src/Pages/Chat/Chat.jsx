@@ -4,6 +4,7 @@ import axios from "axios";
 import { allUsres_url, host_url } from "../../utils/APIroutes";
 import "./Chat.css";
 import Contact from "../../Components/Contacts/Contact";
+import LoadingContacts from "../../Components/Contacts/LoadingContacts";
 import Welcome from "../../Components/Welcome/Welcome";
 import ChatContainer from "../../Components/ChatContainer/ChatContainer";
 import {io} from "socket.io-client";
@@ -15,6 +16,7 @@ const Chat = () => {
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isContactsLoaded, setIsContactsLoaded] = useState(false);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -44,6 +46,7 @@ const Chat = () => {
         try {
           const { data } = await axios.get(`${allUsres_url}/${currentUser._id}`);
           setContacts(data);
+          setIsContactsLoaded(true);
         } catch (error) {
           console.error("Error fetching contacts:", error);
         }
@@ -59,7 +62,9 @@ const Chat = () => {
   return (
     <section className="all-chats grid grid-cols-12 gap-2 h-screen sm:p-2 p-0 sm:overflow-auto overflow-y-hidden">
       <div className="contacts rounded-md px-3 py-2 md:col-span-3 sm:col-span-4 col-span-6 h-screen overflow-auto">
-        <Contact currentUser={currentUser} contacts={contacts} chatChange={handleChatChange}/>
+        {
+          isContactsLoaded ? <Contact currentUser={currentUser} contacts={contacts} chatChange={handleChatChange}/> : <LoadingContacts />
+        }
       </div>
       <div className="messages px-3 py-2 md:col-span-9 sm:col-span-8 col-span-6 h-screen">
         {
