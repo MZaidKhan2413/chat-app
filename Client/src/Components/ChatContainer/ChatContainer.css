@@ -16,7 +16,7 @@
 
 .chat-messages {
     height: 80%;
-    background-color: var(--c-grey);
+    background: radial-gradient(circle, rgba(57,62,70,1) 0%, rgba(34,40,49,1) 100%);
 }
 
 .content {
